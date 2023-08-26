@@ -15,7 +15,8 @@ import { ContentLayoutComponent } from './content-layout/content-layout.componen
   ],
   exports:[ 
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ContentLayoutComponent
   ]
 })
 export class LayoutModule { }
