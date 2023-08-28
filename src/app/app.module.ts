@@ -5,19 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import {MatModule} from './modules/material/mat.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FeaturesModule } from './features/features.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],
+    AppComponent,  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     LayoutModule,
     MatModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FeaturesModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

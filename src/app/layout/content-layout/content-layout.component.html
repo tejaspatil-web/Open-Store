@@ -1,25 +1,25 @@
 <div class="content">
     <div class="cards">
         <div class="card" style="width: 15rem;" *ngFor="let electronics of dataTypeElectronics" >
-            <img class="card image w-100 h-70" [src]="electronics['productImage']" alt="Card image cap">
+            <img [routerLink]="'/product/detail/' + electronics['_id']" class="card image w-100 h-70" [src]="electronics['productImage']" alt="Card image cap">
             <div class="rating">
                 <span class="rating-number">{{electronics['productRating']}}</span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked':electronics['ratings'] >= 1}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked':electronics['ratings'] >= 2}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked':electronics['ratings'] >= 3}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked':electronics['ratings'] >= 4}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked':electronics['ratings'] >= 5}"></span>
             </div>
 
             <div class="card-body">
-              <p class="card-text">{{electronics['productDescription']}}</p>
+              <p class="card-text" [routerLink]="'/product/detail/' + electronics['_id']">{{electronics['productDescription']}}<p>
             </div>
             <div class="price">
                 <span class="price-symbol">₹</span>
                 <span class="price-whole">{{electronics['productPrice']}}</span>
             </div>
             <div>
-                <button type="button" class="btn add-to-cart">Add To Card</button>
+                <button type="button" class="btn add-to-cart" (click)="addToCart(electronics)"><div [ngClass]="{'loader':electronics['isLoding']}">{{!electronics['isLoding'] ? 'Add To Cart' : '' }}</div></button>
             </div>
           </div>
     </div>

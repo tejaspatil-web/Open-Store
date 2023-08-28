@@ -66,10 +66,14 @@ header{
     padding:0px 0px 0px 10px;
 }
 
-.cart-user-icon .badge {
+.add-to-cart{
     position: relative;
-    top: -7px;
-    right: -20px;
+}
+
+.cart-user-icon .badge {
+    position: absolute;
+    top: 2px;
+    right: 21px;
     border-radius: 50%;
     background: red;
     color: white;
