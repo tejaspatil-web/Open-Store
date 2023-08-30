@@ -1,6 +1,6 @@
 <div class="content">
-    <div class="cards">
-        <div class="card" style="width: 15rem;" *ngFor="let electronics of dataTypeElectronics" >
+    <div [ngClass]="{'cards': filterData?.length > 0}" *ngIf="!isLoding || filterData?.length > 0">
+        <div class="card" style="width: 15rem;" *ngFor="let electronics of filterData" >
             <img [routerLink]="'/product/detail/' + electronics['_id']" class="card image w-100 h-70" [src]="electronics['productImage']" alt="Card image cap">
             <div class="rating">
                 <span class="rating-number">{{electronics['productRating']}}</span>
@@ -19,9 +19,10 @@
                 <span class="price-whole">{{electronics['productPrice']}}</span>
             </div>
             <div>
-                <button type="button" class="btn add-to-cart" (click)="addToCart(electronics)"><div [ngClass]="{'loader':electronics['isLoding']}">{{!electronics['isLoding'] ? 'Add To Cart' : '' }}</div></button>
+                <button [disabled]="electronics.isDisabled" type="button" class="btn add-to-cart" (click)="addToCart(electronics)"><div [ngClass]="{'loader':electronics['isLoding']}">{{!electronics['isLoding'] ? 'Add To Cart' : '' }}</div></button>
             </div>
           </div>
     </div>
+        <app-skeleton-loader *ngIf="isLoding || filterData?.length == 0"></app-skeleton-loader>
 </div>
 

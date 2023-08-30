@@ -47,7 +47,7 @@ header{
 }
 
 .search-bar{
-    height: 5vh;
+    height: 32px;
     border-radius: 20px;
     display: flex;
     background-color: rgba(0, 0, 0, 0.11);
@@ -68,6 +68,7 @@ header{
 
 .add-to-cart{
     position: relative;
+    cursor: pointer;
 }
 
 .cart-user-icon .badge {
@@ -77,6 +78,10 @@ header{
     border-radius: 50%;
     background: red;
     color: white;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 

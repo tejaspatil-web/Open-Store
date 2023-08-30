@@ -4,16 +4,20 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContentLayoutComponent } from './content-layout/content-layout.component';
 import { RouterModule } from '@angular/router';
+import { SkeletonLoaderComponent } from '../shared/components/skeleton-loader/skeleton-loader.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
     HeaderComponent,
        FooterComponent,
-       ContentLayoutComponent
+       ContentLayoutComponent,
+       SkeletonLoaderComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgxSkeletonLoaderModule
   ],
   exports:[ 
     HeaderComponent,

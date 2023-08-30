@@ -1,0 +1,17 @@
+.content{
+    width: 60vw;
+    height: 60vh;
+    background-color: #ffffff;
+}
+
+.closebtn{
+   display: flex;
+   justify-content: end;
+   align-items: end;
+    padding: 5px 10px 0px 0px;
+    cursor: pointer;
+
+.fa-xmark{
+    font-size: 20px;
+}
+}

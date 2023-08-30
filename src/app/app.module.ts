@@ -8,10 +8,13 @@ import {MatModule} from './modules/material/mat.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FeaturesModule } from './features/features.module';
 import { RouterModule } from '@angular/router';
+import { CartComponent } from './shared/components/cart-dialogbox/cart.component';
 
 @NgModule({
   declarations: [
-    AppComponent,  ],
+    AppComponent,
+    CartComponent,
+ ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -20,7 +23,7 @@ import { RouterModule } from '@angular/router';
     MatModule,
     BrowserAnimationsModule,
     FeaturesModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
