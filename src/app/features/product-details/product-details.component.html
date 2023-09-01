@@ -1,1 +1,34 @@
-<p>product-details works!</p>
+<div class="main">
+  <div class="card">
+    <div class="image">
+        <img [src]="product?.['productImage']" alt="" />
+    </div>
+
+    <div class="content-product">
+        <div>
+            <div class="rating">
+                <span class="rating-number">{{product?.['productRating']}}</span>
+                  <span class="fa fa-star" [ngClass]="{'checked':product?.['rating'] >= 1}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked':product?.['rating'] >= 2}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked':product?.['rating'] >= 3}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked':product?.['rating'] >= 4}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked':product?.['rating'] >= 5}"></span>
+            </div>
+            <p class="content-description">{{product?.['productDescription']}}</p>
+            <div class="price">
+                <span class="price-symbol">₹</span>
+                <span class="price-whole">{{product?.['productPrice']}}</span>
+            </div>
+            <div class="product-description">
+                <ul>
+                    <li *ngFor="let key of productDescription()"><span>{{key}}</span> : {{product?.['productDetails'][key]}}</li>
+                </ul>
+            </div>
+            <div class="buy-cart-buttons">
+                <button  type="button" class="btn add-to-cart"><div>{{'Add To Cart'}}</div></button>
+                <button  type="button" class="btn add-to-cart"><div>{{'Buy Now'}}</div></button>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

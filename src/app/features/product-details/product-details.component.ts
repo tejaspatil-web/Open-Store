@@ -9,6 +9,8 @@ import { MainContentService } from 'src/app/core/services/main-content/main-cont
 })
 export class ProductDetailsComponent implements OnInit{
 constructor(private _route: ActivatedRoute,private _contentService: MainContentService){}
+public product:object
+
 
 ngOnInit(){
   this.productDetail()
@@ -17,8 +19,16 @@ ngOnInit(){
 productDetail(): void {
   const id = String(this._route.snapshot.paramMap.get('id'));
   this._contentService.getSingleProductDetails(id).subscribe(element =>{
-    console.log(element)
+    element['rating'] = parseInt(element['productRating'])
+    this.product = element
   })
 }
 
+productDescription(){
+let details:Array<any>
+  if(this.product){
+     details =  Object.keys(this.product?.['productDetails']);
+  }
+  return details
+}
 }
