@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
-import {HttpClientModule} from "@angular/common/http"
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
-import {MatModule} from './modules/material/mat.module';
+import { MatModule } from './modules/material-module/mat.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FeaturesModule } from './features/features.module';
 import { RouterModule } from '@angular/router';
 import { CartComponent } from './shared/components/cart-dialogbox/cart.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CartComponent,
- ],
+  declarations: [AppComponent, CartComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -26,6 +23,6 @@ import { CartComponent } from './shared/components/cart-dialogbox/cart.component
     RouterModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

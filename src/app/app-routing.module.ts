@@ -4,12 +4,19 @@ import { ContentLayoutComponent } from './layout/content-layout/content-layout.c
 import { ProductDetailsComponent } from './features/product-details/product-details.component';
 
 const routes: Routes = [
-  {path:'',component:ContentLayoutComponent},
- {path: 'product/detail/:id', component:ProductDetailsComponent}
+  { path: '', component: ContentLayoutComponent },
+  { path: 'product/detail/:id', component: ProductDetailsComponent },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./modules/entry-module/entry-routing.module').then(
+        (m) => m.EntryRoutingModule
+      ),
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
