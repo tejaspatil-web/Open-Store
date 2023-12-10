@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/core/services/user/user.service';
 import { CartComponent } from 'src/app/shared/components/cart-dialogbox/cart.component';
 import { ProductFilterService } from 'src/app/shared/services/product-filter.service';
 
@@ -13,17 +14,34 @@ export class HeaderComponent implements OnInit {
   public cart = [];
   constructor(
     private _productFilterService: ProductFilterService,
+    private _userService:UserService,
     public dialog: MatDialog,
     private _router: Router
   ) {}
 
   ngOnInit(): void {
     this.addToCart();
+    this.getUserData()
   }
 
   searchValue(event) {
     this._productFilterService.searchValue(event.target.value);
   }
+
+getUserData(){
+  const userId = localStorage.getItem('userId')
+  if(userId){
+    this._userService.getUserDetails(userId).subscribe({
+      next:(res)=>{
+        console.log(res)
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+  }
+
+}
 
   addToCart() {
     this._productFilterService.$_cart.subscribe((data) => {
@@ -44,6 +62,6 @@ export class HeaderComponent implements OnInit {
   }
 
   navigateToLoginPage() {
-    this._router.navigate(['/login/login']);
+    this._router.navigate(['/user/login']); 
   }
 }

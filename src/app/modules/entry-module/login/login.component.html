@@ -1,1 +1,37 @@
-<p style="margin-bottom: 100px">login works!</p>
+<mat-card>
+    <mat-card-title>Login</mat-card-title>
+<mat-card-content>
+<div>
+  <p>
+    <mat-form-field>
+      <mat-label>Enter your email</mat-label>
+      <input matInput (input)="error = false" placeholder="name@example.com" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage('email')}}</mat-error>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      <input matInput (input)="error = false" [type]="hide ? 'password' : 'text'" [formControl]="password" >
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="password.invalid">{{getErrorMessage('password')}}</mat-error>
+    </mat-form-field>
+    <a class="forgot-pass">Forgot password?</a>
+  </p>
+
+  <p *ngIf="error" class="error">
+    Username or password invalid
+  </p>
+  <div class="button">
+    <button type="submit" [disabled]="!email.valid || !password.valid" mat-raised-button color="primary" (click)="submit()"><span>Login</span>&nbsp;<span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+
+  </div>
+
+</div>
+</mat-card-content>
+</mat-card>
+
+<p class="noaccount">Don't have an account?&nbsp;<a class="signup" [routerLink]="['/user/signup']">Signup</a></p>

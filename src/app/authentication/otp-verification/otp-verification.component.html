@@ -1,0 +1,19 @@
+
+<div class="main">
+    <div class="close">
+        <button mat-raised-button (click)="closeDialog()">X</button>
+    </div>
+    <h4>OTP Verification</h4>
+    <div class="verification-title">
+        <p>
+            We've send verification code to your 
+            email - <span>test@gmail.com</span>
+        </p>
+    </div>
+    <mat-form-field>
+        <mat-label>Enter Verification Code</mat-label>
+        <input matInput required>
+          <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage('mobile-number')}}</mat-error> -->
+      </mat-form-field>
+      <button class="submit" type="submit" mat-raised-button color="primary">Submit</button>
+</div>

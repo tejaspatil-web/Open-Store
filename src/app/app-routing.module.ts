@@ -7,10 +7,10 @@ const routes: Routes = [
   { path: '', component: ContentLayoutComponent },
   { path: 'product/detail/:id', component: ProductDetailsComponent },
   {
-    path: 'login',
+    path: 'user',
     loadChildren: () =>
       import('./modules/entry-module/entry-routing.module').then(
-        (m) => m.EntryRoutingModule
+        (module) => module.EntryRoutingModule
       ),
   },
 ];

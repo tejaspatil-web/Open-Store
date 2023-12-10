@@ -1,0 +1,51 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column
+}
+
+mat-card {
+  margin: 100px 10px 0px 10px;
+}
+
+mat-card-title {
+  font-size: x-large;
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
+mat-form-field {
+  width: 100%;
+  min-width: 300px;
+}
+
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+
+.forgot-pass{
+  font-style: italic;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.button button {
+  width: 100%;
+  display: flex;
+}
+
+.noaccount {
+  display: flex;
+  margin: 10px 0px;
+}
+
+.signup {
+  cursor: pointer;
+}

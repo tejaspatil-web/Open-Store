@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,9 +9,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FeaturesModule } from './features/features.module';
 import { RouterModule } from '@angular/router';
 import { CartComponent } from './shared/components/cart-dialogbox/cart.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserAccessInterceptor } from './interceptors/user-access.interceptor';
+import { OtpVerificationComponent } from './authentication/otp-verification/otp-verification.component';
 
 @NgModule({
-  declarations: [AppComponent, CartComponent],
+  declarations: [AppComponent, CartComponent, OtpVerificationComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -21,8 +24,12 @@ import { CartComponent } from './shared/components/cart-dialogbox/cart.component
     BrowserAnimationsModule,
     FeaturesModule,
     RouterModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,useClass:UserAccessInterceptor,
+    multi:true
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
