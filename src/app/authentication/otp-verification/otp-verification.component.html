@@ -1,19 +1,33 @@
-
-<div class="main">
-    <div class="close">
-        <button mat-raised-button (click)="closeDialog()">X</button>
-    </div>
-    <h4>OTP Verification</h4>
-    <div class="verification-title">
-        <p>
-            We've send verification code to your 
-            email - <span>test@gmail.com</span>
-        </p>
-    </div>
-    <mat-form-field>
-        <mat-label>Enter Verification Code</mat-label>
-        <input matInput required>
-          <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage('mobile-number')}}</mat-error> -->
-      </mat-form-field>
-      <button class="submit" type="submit" mat-raised-button color="primary">Submit</button>
+    <div class="main" *ngIf="!isLoading">
+        <div class="close">
+            <button mat-raised-button (click)="closeDialog()">X</button>
+        </div>
+        <h4>OTP Verification</h4>
+        <div [ngClass]="{'verification-title-send-otp':isOtpSend,'verification-title-unable-send-otp':!isOtpSend}">
+            <p *ngIf="isOtpSend">
+                We've send verification code to your 
+                email - <span>{{data.email}}</span>
+            </p>
+            <p *ngIf="!isOtpSend">
+                unable send verification code to your 
+                email please re check your email
+            </p>
+        </div>
+        <mat-form-field>
+            <mat-label>Enter 4 Digits Verification Code</mat-label>
+            <input (input)="validationForOtp($event)" [disabled]="!isOtpSend" matInput required>
+          </mat-form-field>
+          <button [disabled]="!isOtpSend || userOtp.length !== 4" class="submit" (click)="submit()" type="submit" mat-raised-button color="primary"><span>Submit</span>&nbsp;<span
+            *ngIf="isSubmitDone"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span></button>
+          <div *ngIf="!isVerification" class="errorMessage">
+            <p>{{errorMessage}}</p>
+          </div>
+      </div>
+      
+<div *ngIf="isLoading" class="loader">
+    <mat-spinner></mat-spinner>
 </div>

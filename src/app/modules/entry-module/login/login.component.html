@@ -19,7 +19,7 @@
       </button>
       <mat-error *ngIf="password.invalid">{{getErrorMessage('password')}}</mat-error>
     </mat-form-field>
-    <a class="forgot-pass">Forgot password?</a>
+    <a class="forgot-pass" (click)="forgotPassword()">Forgot password?</a>
   </p>
 
   <p *ngIf="error" class="error">

@@ -8,7 +8,6 @@ import { userAuthenticationModel , userDetails} from '../../../models/user-auth.
 })
 export class UserService {
   constructor(private _http: HttpClient) {}
-
   private _url = environment.baseApiUrls;
 
   userAuthentication(userAuth: userAuthenticationModel) {
@@ -21,6 +20,15 @@ export class UserService {
 
   userRegistration(userDetails:userDetails){
     return this._http.post(`${this._url.userApi}/create`,userDetails)
+  }
+
+  sendOtpForEmailVerification(email:Object){
+    return this._http.post(`${this._url.userApi}/sendotp`,email)
+  }
+
+  userEmailVerification(email:String,otp:String){
+    const parameters = {email:email,otp:otp}
+    return this._http.post(`${this._url.userApi}/verifyotp`,parameters)
   }
 
 }

@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user/user.service';
 import { userAuthenticationModel } from 'src/app/models/user-auth.model';
 import { Router } from '@angular/router';
+import { OtpVerificationComponent } from 'src/app/authentication/otp-verification/otp-verification.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent {
   public password = new FormControl('', [Validators.required]);
   public error: boolean = false;
 
-  constructor(private user: UserService,private _roter:Router) {}
+  constructor(private user: UserService,private _roter:Router, public dialog: MatDialog) {}
   ngOnInit() {}
 
   getErrorMessage(field) {
@@ -35,6 +37,15 @@ export class LoginComponent {
     }
     return '';
   }
+
+  forgotPassword(){
+    const dialogRef = this.dialog.open(OtpVerificationComponent, {
+      disableClose: true,
+      width: '400px',
+      height: '360px',
+      data: { email: this.email.value },
+  })
+}
 
   submit() {
     this.isLoading = true
