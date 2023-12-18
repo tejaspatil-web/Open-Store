@@ -109,7 +109,7 @@
           color="primary"
           (click)="submit()"
         >
-          <span>Sign up</span>&nbsp;<span
+          <span *ngIf="!isLoading">Sign up</span>&nbsp;<span
             *ngIf="isLoading"
             class="spinner-border spinner-border-sm"
             role="status"

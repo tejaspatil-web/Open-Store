@@ -1,8 +1,8 @@
-    <div class="main" *ngIf="!isLoading">
-        <div class="close">
+    <div class="main" *ngIf="!isLoading && component === 'signup'">
+        <div class="d-flex justify-content-end">
             <button mat-raised-button (click)="closeDialog()">X</button>
         </div>
-        <h4>OTP Verification</h4>
+        <h4 class="text-center">OTP Verification</h4>
         <div [ngClass]="{'verification-title-send-otp':isOtpSend,'verification-title-unable-send-otp':!isOtpSend}">
             <p *ngIf="isOtpSend">
                 We've send verification code to your 
@@ -17,17 +17,94 @@
             <mat-label>Enter 4 Digits Verification Code</mat-label>
             <input (input)="validationForOtp($event)" [disabled]="!isOtpSend" matInput required>
           </mat-form-field>
-          <button [disabled]="!isOtpSend || userOtp.length !== 4" class="submit" (click)="submit()" type="submit" mat-raised-button color="primary"><span>Submit</span>&nbsp;<span
+          <button [disabled]="!isOtpSend || userOtp.length !== 4" class="submit" (click)="submit()" type="submit" mat-raised-button color="primary"><span *ngIf="!isSubmitDone">Submit</span>&nbsp;<span
             *ngIf="isSubmitDone"
             class="spinner-border spinner-border-sm"
             role="status"
             aria-hidden="true"
           ></span></button>
           <div *ngIf="!isVerification" class="errorMessage">
-            <p>{{errorMessage}}</p>
+            <p class="text-center">{{errorMessage}}</p>
           </div>
       </div>
-      
+<div class="forgot-pass" *ngIf="!isLoading && component === 'login'">
+  <div [ngSwitch]="forgotPasswordValues">
+    <div class="d-flex justify-content-end">
+      <button class="d-flex w-20" mat-raised-button (click)="closeDialog()">X</button>
+  </div>
+  <div *ngSwitchCase="'forgot-password'">
+    <h4 class="d-flex justify-content-center mt-3 fw-bold">Forgot Password</h4>
+    <p class="text-center">Enter your registered email to reset your password</p> 
+    <div class="d-flex flex-column justify-content-center">
+        <mat-form-field>
+            <mat-label>Enter your email</mat-label>
+            <input matInput required [formControl]="email" (input)="isError = false" class="w-100" type="text">
+            <mat-error class="mt-1">{{getErrorMessage('email')}}</mat-error>
+          </mat-form-field>
+            <button class="submit mt-2 mb-3" (click)="forgotPassword()" mat-raised-button color="primary"><span *ngIf="!isSubmitDone">Reset Password</span>&nbsp;<span
+            *ngIf="isSubmitDone"
+            class="spinner-border spinner-border-sm"    
+            role="status"
+            aria-hidden="true"
+          ></span></button>
+          <div *ngIf="isError">
+            <p  class="reset-password-alert text-center p-2">{{errorMessage}}</p>
+          </div>
+    </div>
+  </div>
+  <div *ngSwitchCase="'verification-required'">
+    <h4 class="d-flex justify-content-center mt-3 fw-bold">Verification required</h4>
+    <p class="text-center">We've sent an OTP to the email <span>{{email.value}}</span>. Please enter it below to complete verification.</p> 
+    <div class="d-flex flex-column justify-content-center">
+        <mat-form-field class="pt-0">
+            <mat-label>Enter OTP</mat-label>
+            <input matInput required (input)="validationForOtp($event)" class="w-100" type="text">
+          </mat-form-field>
+            <button class="submit mt-2" (click)="otpVerificationForResetPassword()" mat-raised-button color="primary"><span *ngIf="!isSubmitDone">Submit</span>&nbsp;<span
+            *ngIf="isSubmitDone"
+            class="spinner-border spinner-border-sm"    
+            role="status"
+            aria-hidden="true"
+          ></span></button>
+          <div *ngIf="isError">
+            <p class="reset-password-alert text-center mt-2 p-2">{{errorMessage}}</p>
+          </div>
+    </div>
+  </div>
+  <div *ngSwitchCase="'reset-password'">
+    <h4 class="d-flex justify-content-center mt-3 fw-bold">Reset Password</h4>
+    <p class="text-center">Enter a new password for <span>{{email.value}}</span></p> 
+    <div class="d-flex flex-column justify-content-center">
+          <mat-form-field class="pt-0">
+            <mat-label>Password</mat-label>
+            <input matInput (input)="isError = false" [type]="hidePassword ? 'password' : 'text'" [formControl]="password"  class="w-100">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.invalid">{{getErrorMessage('password')}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="pt-0">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput (input)="isError = false" [type]="hideConfirmPassword ? 'password' : 'text'" [formControl]="confirmPassword" class="w-100">
+            <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+              <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.invalid">{{getErrorMessage('password')}}</mat-error>
+          </mat-form-field>
+            <button class="submit mt-2" (click)="changePassword()" mat-raised-button color="primary"><span *ngIf="!isSubmitDone">Reset Password</span>&nbsp;<span
+            *ngIf="isSubmitDone"
+            class="spinner-border spinner-border-sm"    
+            role="status"
+            aria-hidden="true"
+          ></span></button>
+          <div *ngIf="isError">
+            <p  [ngClass]="{'password-updated':isPasswordUpdated,'reset-password-alert':!isPasswordUpdated}" class="text-center mt-2 p-2">{{errorMessage}}</p>
+          </div>
+    </div>
+  </div>
+</div>
+  </div>
 <div *ngIf="isLoading" class="loader">
     <mat-spinner></mat-spinner>
 </div>

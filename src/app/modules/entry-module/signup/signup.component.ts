@@ -95,7 +95,7 @@ export class SignupComponent {
       disableClose: true,
       width: '400px',
       height: '360px',
-      data: { email: this.email.value },
+      data: { email: this.email.value ,component:'signup'},
     });
 
     dialogRef.afterClosed().subscribe((result) => {

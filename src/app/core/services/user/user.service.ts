@@ -31,4 +31,23 @@ export class UserService {
     return this._http.post(`${this._url.userApi}/verifyotp`,parameters)
   }
 
+  sendOtpResetPassword(email:String){
+    const url = 'http://localhost:8080/api/user/forgotpassword'
+    // return this._http.post(`${this._url.userApi}/forgotpassword`,{email:email})
+    return this._http.post(`${url}`,{email:email})
+  }
+
+otpVerifiactionResetPassword(email:String,otp:String){
+  const parameters = {email:email,otp:otp}
+  const url = 'http://localhost:8080/api/user/otpverification'
+  // return this._http.post(`${this._url.userApi}/otpverification`,parameters)
+  return this._http.post(`${url}`,parameters)
+}
+
+updatePassword(email:String,password:String,otp:String){
+  const parameters = {email:email,password:password,otp:otp}
+  const url = 'http://localhost:8080/api/user/updatepassword'
+  return this._http.post(`${url}`,parameters)
+}
+
 }

@@ -26,13 +26,13 @@ export class LoginComponent {
     this.error = false
     if (field === 'email') {
       if (this.email.hasError('required')) {
-        return 'You must enter a value';
+        return 'You must enter a email';
       } else {
         return this.email.hasError('email') ? 'Not a valid email' : '';
       }
     } else if (field === 'password') {
       if (this.password.hasError('required')) {
-        return 'You must enter a value';
+        return 'You must enter a password';
       }
     }
     return '';
@@ -42,8 +42,8 @@ export class LoginComponent {
     const dialogRef = this.dialog.open(OtpVerificationComponent, {
       disableClose: true,
       width: '400px',
-      height: '360px',
-      data: { email: this.email.value },
+      height: 'auto',
+      data: { component:'login' },
   })
 }
 

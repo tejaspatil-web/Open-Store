@@ -26,7 +26,7 @@
     Username or password invalid
   </p>
   <div class="button">
-    <button type="submit" [disabled]="!email.valid || !password.valid" mat-raised-button color="primary" (click)="submit()"><span>Login</span>&nbsp;<span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+    <button type="submit" [disabled]="!email.valid || !password.valid" mat-raised-button color="primary" (click)="submit()"><span *ngIf="!isLoading" >Login</span>&nbsp;<span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
 
   </div>
 
