@@ -9,10 +9,5 @@ export class SkeletonLoaderComponent implements OnInit {
   public cards: Array<number>;
 
   ngOnInit() {
-    this.cards = [];
-    const count = 12;
-    for (let i = 0; i < count; i++) {
-      this.cards.push(i);
-    }
   }
 }

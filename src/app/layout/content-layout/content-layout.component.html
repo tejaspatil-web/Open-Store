@@ -23,6 +23,9 @@
             </div>
           </div>
     </div>
-        <app-skeleton-loader *ngIf="isLoding || filterData?.length == 0"></app-skeleton-loader>
+</div>
+
+<div *ngIf="isLoding || filterData?.length == 0 " class="skeleton-loader">
+    <app-skeleton-loader *ngFor="let card of cards"></app-skeleton-loader>
 </div>
 

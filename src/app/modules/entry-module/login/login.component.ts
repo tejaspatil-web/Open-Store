@@ -5,6 +5,7 @@ import { userAuthenticationModel } from 'src/app/models/user-auth.model';
 import { Router } from '@angular/router';
 import { OtpVerificationComponent } from 'src/app/authentication/otp-verification/otp-verification.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,10 @@ export class LoginComponent {
   public password = new FormControl('', [Validators.required]);
   public error: boolean = false;
 
-  constructor(private user: UserService,private _roter:Router, public dialog: MatDialog) {}
-  ngOnInit() {}
+  constructor(private user: UserService,private _roter:Router, public dialog: MatDialog,private _sharedService:SharedService) {}
+  ngOnInit() {
+    this._sharedService.setIsShowLogo(true)
+  }
 
   getErrorMessage(field) {
     this.error = false

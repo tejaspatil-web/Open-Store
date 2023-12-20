@@ -15,7 +15,9 @@ export class MainContentService {
   }
 
   getSingleProductDetails(id:string){
-  return this._http.get(`${this.url.productApi}/product/${id}`)
+    const url ="http://localhost:8080/api/product"
+  // return this._http.get(`${this.url.productApi}/product/${id}`)
+  return this._http.get(`${url}/product/${id}`)
   }
 
 }
