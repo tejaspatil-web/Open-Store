@@ -32,7 +32,6 @@ export class ContentLayoutComponent {
     }
     this.productList();
     this.searchProduct();
-    this._sharedService.setIsShowLogo(false)
   }
 
   productList() {

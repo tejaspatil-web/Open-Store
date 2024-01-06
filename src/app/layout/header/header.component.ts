@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { CartComponent } from 'src/app/shared/components/cart-dialogbox/cart.component';
 import { ProductFilterService } from 'src/app/shared/services/product-filter.service';
-import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -15,27 +14,29 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 export class HeaderComponent implements OnInit,OnDestroy {
   public cart = [];
   public isShowLogo: boolean = false;
-  private _isShowLogoSubscription: Subscription = new Subscription();
   constructor(
     private _productFilterService: ProductFilterService,
     private _userService: UserService,
     public dialog: MatDialog,
     private _router: Router,
-    private _sharedService: SharedService
+    private _activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.addToCart();
     this.getUserData();
-    this._isShowLogoSubscription = this._sharedService
-      .getIsShowLogo()
-      .subscribe((value) => {
-        try {
-          this.isShowLogo = value;
-        } catch (error) {
-          console.log(error);
+    this._router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Get the active route snapshot after navigation ends
+        const snapshot = this._activeRoute.snapshot;
+        const validRoutes = ["/user/login","/user/signup"]
+        if(snapshot['_routerState'].url && validRoutes.includes(snapshot['_routerState'].url)){
+          this.isShowLogo = true;
+        }else{
+          this.isShowLogo = false;
         }
-      });
+      }
+    });
   }
 
   searchValue(event) {
@@ -79,8 +80,6 @@ export class HeaderComponent implements OnInit,OnDestroy {
     this.isShowLogo = true;
   }
 
-  ngOnDestroy(): void {
-    this._isShowLogoSubscription.unsubscribe()
-  }
+  ngOnDestroy(): void {}
 
 }

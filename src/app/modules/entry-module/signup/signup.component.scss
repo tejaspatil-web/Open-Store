@@ -17,13 +17,14 @@
   
   mat-form-field {
     width: 100%;
-    min-width: 300px;
+    min-width: 250px;
   }
   
   mat-card-title,
   mat-card-content {
     display: flex;
     justify-content: center;
+    padding: 0 16px;
   }
   
 .email{

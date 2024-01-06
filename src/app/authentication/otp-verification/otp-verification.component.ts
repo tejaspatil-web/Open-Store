@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/core/services/user/user.service';
+import { errorMessage, successMessage, validationMessage } from 'src/app/models/user-auth.model';
 
 @Component({
   selector: 'app-otp-verification',
@@ -17,7 +18,7 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
   public password = new FormControl('', [Validators.required]);
   public confirmPassword = new FormControl('', [Validators.required]);
   public isLoading: boolean = true;
-  public forgotPasswordValues: string = 'forgot-password';
+  public forgotPasswordValues: string = validationMessage.forgotPassword;
   public userOtp: String = '';
   public isSubmitDone: Boolean = false;
   public isVerification: boolean = false;
@@ -105,20 +106,20 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
         .sendOtpResetPassword(this.email.value)
         .subscribe({
           next: (res: any) => {
-            this.forgotPasswordValues = 'verification-required';
+            this.forgotPasswordValues = errorMessage.verificationRequired;
             this.isSubmitDone = false;
             this.isError = false;
           },
           error: (error) => {
             this.isError = true;
             this.isSubmitDone = false;
-            this.errorMessage = 'Please enter valid email';
+            this.errorMessage = errorMessage.enterValidEmail;
           },
         });
     } else {
       this.isError = true;
       this.isSubmitDone = false;
-      this.errorMessage = 'Please enter valid email';
+      this.errorMessage = errorMessage.enterValidEmail;
     }
   }
 
@@ -128,14 +129,14 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
       .otpVerifiactionResetPassword(this.email.value, this.userOtp)
       .subscribe({
         next: (res) => {
-          this.forgotPasswordValues = 'reset-password';
+          this.forgotPasswordValues = validationMessage.resetPassword;
           this.isSubmitDone = false;
           this.isError = false;
         },
         error: (erorr) => {
           this.isError = true;
           this.isSubmitDone = false;
-          this.errorMessage = 'Please enter valid otp';
+          this.errorMessage = errorMessage.enterValidOtp;
         },
       });
   }
@@ -154,7 +155,7 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
             this.isSubmitDone = false;
             this.isError = true;
             this.isPasswordUpdated = true;
-            this.errorMessage = 'Password changed successfully';
+            this.errorMessage = successMessage.passwordChanged;
             setTimeout(() => {
               this.dialogRef.close(this.isVerification);
             }, 2000);
@@ -162,13 +163,13 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
           error: (erorr) => {
             this.isError = true;
             this.isSubmitDone = false;
-            this.errorMessage = 'Unable to change your password try again';
+            this.errorMessage = errorMessage.unableChangePassword
           },
         });
     } else {
       this.isError = true;
       this.isSubmitDone = false;
-      this.errorMessage = 'Password do not match';
+      this.errorMessage = errorMessage.passwordNotMatch;
     }
   }
 
@@ -179,10 +180,10 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
   private _verification(response) {
     if (response.status === 200) {
       this.isVerification = true;
-      this._showErrorMessage('verification successfully');
+      this._showErrorMessage(successMessage.verificationSuccessfully);
     } else {
       this.isVerification = false;
-      this._showErrorMessage('Invalid OTP entered');
+      this._showErrorMessage(errorMessage.invalidOtp);
     }
     this.isSubmitDone = false;
   }
@@ -202,13 +203,13 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
   getErrorMessage(field) {
     if (field === 'email') {
       if (this.email.hasError('required')) {
-        return 'You must enter a email';
+        return errorMessage.email;
       } else {
-        return this.email.hasError('email') ? 'Not a valid email' : '';
+        return this.email.hasError('email') ? errorMessage.emailNotValid: '';
       }
     } else if (field === 'password') {
       if (this.password.hasError('required')) {
-        return 'You must enter a password';
+        return errorMessage.password;
       }
     }
     return '';

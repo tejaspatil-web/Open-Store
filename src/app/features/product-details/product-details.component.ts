@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MainContentService } from 'src/app/core/services/main-content/main-content.service';
+import { ProductService } from 'src/app/core/services/product/product.service';
 
 @Component({
   selector: 'app-product-details',
@@ -8,7 +8,7 @@ import { MainContentService } from 'src/app/core/services/main-content/main-cont
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit{
-constructor(private _route: ActivatedRoute,private _contentService: MainContentService){}
+constructor(private _route: ActivatedRoute,private _productService: ProductService){}
 public product:object
 
 
@@ -18,7 +18,7 @@ ngOnInit(){
 
 productDetail(): void {
   const id = String(this._route.snapshot.paramMap.get('id'));
-  this._contentService.getSingleProductDetails(id).subscribe(element =>{
+  this._productService.getSingleProductDetails(id).subscribe(element =>{
     element['rating'] = parseInt(element['productRating'])
     this.product = element
   })

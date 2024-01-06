@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user/user.service';
 import { userAuthenticationModel } from 'src/app/models/user-auth.model';
 import { Router } from '@angular/router';
@@ -20,10 +20,8 @@ export class LoginComponent {
   public password = new FormControl('', [Validators.required]);
   public error: boolean = false;
 
-  constructor(private user: UserService,private _roter:Router, public dialog: MatDialog,private _sharedService:SharedService) {}
-  ngOnInit() {
-    this._sharedService.setIsShowLogo(true)
-  }
+  constructor(private user: UserService,private _roter:Router, public dialog: MatDialog) {}
+  ngOnInit() {}
 
   getErrorMessage(field) {
     this.error = false
