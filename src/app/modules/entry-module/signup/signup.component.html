@@ -12,7 +12,7 @@
             [formControl]="name"
             required
           />
-          <mat-error *ngIf="email.invalid">{{
+          <mat-error *ngIf="name.invalid">{{
             getErrorMessage("name")
           }}</mat-error>
         </mat-form-field>
@@ -71,7 +71,7 @@
             [formControl]="number"
             required
           />
-          <mat-error *ngIf="email.invalid">{{
+          <mat-error *ngIf="number.invalid">{{
             getErrorMessage("mobile-number")
           }}</mat-error>
         </mat-form-field>

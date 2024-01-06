@@ -12,9 +12,10 @@ import { CartComponent } from './shared/components/cart-dialogbox/cart.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserAccessInterceptor } from './interceptors/user-access.interceptor';
 import { OtpVerificationComponent } from './authentication/otp-verification/otp-verification.component';
+import { SnackbarComponent } from './shared/components/snack-bar/snackbar.component';
 
 @NgModule({
-  declarations: [AppComponent, CartComponent, OtpVerificationComponent],
+  declarations: [AppComponent, CartComponent, OtpVerificationComponent, SnackbarComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

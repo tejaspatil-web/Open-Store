@@ -3,17 +3,17 @@
 <mat-card-content>
 <div>
   <p>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
-      <input matInput (input)="error = false" placeholder="name@example.com" [formControl]="email" required>
+      <input matInput (input)="error = false" placeholder="name@example.com" [formControl]="email" autocomplete="email" id="email" name="email"  required>
         <mat-error *ngIf="email.invalid">{{getErrorMessage('email')}}</mat-error>
     </mat-form-field>
   </p>
 
   <p>
-    <mat-form-field>
+    <mat-form-field appearance="fill"> 
       <mat-label>Enter your password</mat-label>
-      <input matInput (input)="error = false" [type]="hide ? 'password' : 'text'" [formControl]="password" >
+      <input matInput (input)="error = false" [type]="hide ? 'password' : 'text'" [formControl]="password" id="password" name="password" autocomplete="current-password">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>

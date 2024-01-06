@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { OtpVerificationComponent } from 'src/app/authentication/otp-verification/otp-verification.component';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { userDetails } from 'src/app/models/user-auth.model';
+import { SnackbarComponent } from 'src/app/shared/components/snack-bar/snackbar.component';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +17,8 @@ export class SignupComponent {
   constructor(
     private _router: Router,
     private _userService: UserService,
-    public dialog: MatDialog
+    private _dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {}
 
   private userDetails: userDetails = new userDetails();
@@ -52,16 +55,15 @@ export class SignupComponent {
       if (this.number.hasError('required')) {
         return 'You must enter your mobile number';
       } else {
-        return this.number.hasError('number')
-          ? 'Not a valid mobile number'
-          : '';
+        return 'Not a valid mobile number'
+        
       }
     }
     return '';
   }
 
   submit() {
-    if(this.email.valid && this.email.valid && this.password.valid && this.number.valid && this.isVerify === 'true'){
+    if(this.email.valid && this.name.valid && this.password.valid && this.number.valid && this.isVerify === 'true'){
       this.isLoading = true;
       this.userDetails = new userDetails({
         name: this.name.value,
@@ -73,6 +75,12 @@ export class SignupComponent {
         next: (res: any) => {
           this.errorMessage = res.message
           this.isLoading = false;
+          this._snackBar.openFromComponent(SnackbarComponent, {
+            horizontalPosition:'center',
+            verticalPosition: 'top',
+            data:{message:'User registration successful'},
+            duration:5000,
+          });
           this._router.navigate(['/user/login']);
         },
         error: (error) => {
@@ -91,7 +99,7 @@ export class SignupComponent {
   }
 
   verifyEmail() {
-    const dialogRef = this.dialog.open(OtpVerificationComponent, {
+    const dialogRef = this._dialog.open(OtpVerificationComponent, {
       disableClose: true,
       width: '400px',
       height: '360px',
