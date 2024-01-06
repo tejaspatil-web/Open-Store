@@ -17,7 +17,7 @@
   
   mat-form-field {
     width: 100%;
-    min-width: 250px;
+    min-width: 300px;
   }
   
   mat-card-title,
@@ -68,4 +68,10 @@
   
   .signup {
     cursor: pointer;
+  }
+
+  @media screen and (max-width:850px){
+    mat-form-field {
+      min-width: 250px;
+    }
   }
