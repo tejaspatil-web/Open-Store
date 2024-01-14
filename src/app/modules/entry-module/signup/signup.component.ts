@@ -79,7 +79,7 @@ export class SignupComponent {
             horizontalPosition:'center',
             verticalPosition: 'top',
             data:{message:'User registration successful'},
-            duration:5000,
+            duration:2000,
           });
           this._router.navigate(['/user/login']);
         },

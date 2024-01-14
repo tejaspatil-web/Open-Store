@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { errorMessage, successMessage, validationMessage } from 'src/app/models/user-auth.model';
 
@@ -53,25 +53,18 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
 
   otpVerification(email: Object) {
     this._sendOtpForEmailVerificationSubscription = this._userService
-      .sendOtpForEmailVerification(email)
+      .sendOtpForEmailVerification(email).pipe(finalize(()=>{
+        this.isLoading = false;
+      }))
       .subscribe({
         next: (res: any) => {
-          this.handleError(res);
+          this.isOtpSend = true;
         },
         error: (error) => {
-          this.handleError(error);
+          this.isOtpSend = false;
+          this.errorMessage;
         },
       });
-  }
-
-  handleError(status) {
-    if (status.status === 200) {
-      this.isOtpSend = true;
-    } else {
-      this.isOtpSend = false;
-      this.errorMessage;
-    }
-    this.isLoading = false;
   }
 
   validationForOtp(event) {
@@ -88,14 +81,18 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
     const email = this.data.email;
     const otp = this.userOtp;
     this._userEmailVerificationSubscription = this._userService
-      .userEmailVerification(email, otp)
+      .userEmailVerification(email, otp).pipe(finalize(()=>{
+       this.isSubmitDone = false;
+      }))
       .subscribe({
         next: (res: any) => {
-          this._verification(res);
+      this.isVerification = true;
+      this._showErrorMessage(successMessage.verificationSuccessfully);
         },
         error: (error) => {
-          this._verification(error);
-        },
+      this.isVerification = false;
+      this._showErrorMessage(errorMessage.invalidOtp);
+        }
       });
   }
 
@@ -175,17 +172,6 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
 
   resetPassword() {
     this.isSubmitDone = true;
-  }
-
-  private _verification(response) {
-    if (response.status === 200) {
-      this.isVerification = true;
-      this._showErrorMessage(successMessage.verificationSuccessfully);
-    } else {
-      this.isVerification = false;
-      this._showErrorMessage(errorMessage.invalidOtp);
-    }
-    this.isSubmitDone = false;
   }
 
   private _showErrorMessage(error) {

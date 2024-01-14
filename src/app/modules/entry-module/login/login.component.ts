@@ -5,7 +5,6 @@ import { userAuthenticationModel } from 'src/app/models/user-auth.model';
 import { Router } from '@angular/router';
 import { OtpVerificationComponent } from 'src/app/authentication/otp-verification/otp-verification.component';
 import { MatDialog } from '@angular/material/dialog';
-import { SharedService } from 'src/app/shared/services/shared.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from 'src/app/shared/components/snack-bar/snackbar.component';
 
@@ -65,7 +64,7 @@ export class LoginComponent implements OnInit {
           horizontalPosition:'center',
           verticalPosition: 'top',
           data:{message:'Logged in successful'},
-          duration:5000,
+          duration:2000,
         });
         this._roter.navigate([''])
       },

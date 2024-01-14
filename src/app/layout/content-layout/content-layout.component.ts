@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
@@ -19,9 +20,8 @@ export class ContentLayoutComponent {
   public cards = []
   constructor(
     private _contentService: MainContentService,
-    private _router: Router,
     private _productSearchService: ProductFilterService,
-    private _sharedService:SharedService
+    private _http:HttpClient
   ) {}
 
   ngOnInit() {
@@ -81,4 +81,17 @@ export class ContentLayoutComponent {
         this.filterData = filterData;
       });
   }
+
+//   inputFile(event){
+//    const file = event.target.files[0]
+//    const formData = new FormData()
+//    formData.append('file',file)
+//    const json = {description:'test',price:1,trademark:'test',type:'test'}
+//    formData.append('data',JSON.stringify(json))
+//    const url = 'http://localhost:8080/api/product/create'
+// this._http.post(url,formData).subscribe(e=>{
+//   e
+// })
+//   }
+
 }
