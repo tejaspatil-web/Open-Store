@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
 import { MainContentService } from 'src/app/core/services/main-content/main-content.service';
+import { basePathLocal } from 'src/app/shared/constant/constant-url';
 import { ProductFilterService } from 'src/app/shared/services/product-filter.service';
-import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-content-layout',
@@ -12,9 +11,12 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   styleUrls: ['./content-layout.component.scss'],
 })
 export class ContentLayoutComponent {
+  public imagesPath = basePathLocal;
   public productData: Array<object>;
-  public filterData: any;
+  public filterDataElectronics : Array<object>;
   public dataTypeElectronics: Array<object>;
+  public dataTypeCloths: Array<object>;
+  public filterDataTypeCloths: Array<object>;
   public isLoding: boolean = true;
   public cart: Array<object>;
   public cards = []
@@ -40,12 +42,24 @@ export class ContentLayoutComponent {
       this.dataTypeElectronics = data.filter(
         (element) => element.productType === 'electronics'
       );
+
       this.dataTypeElectronics.forEach((data: any) => {
         data.ratings = parseInt(data.productRating);
         data.isLoding = false;
         data.cart = false;
       });
-      this.filterData = this.dataTypeElectronics;
+
+      this.dataTypeCloths = data.filter(
+        (element) => element.productType === 'clothing and accessories'
+      )
+      this.dataTypeCloths.forEach((data: any) => {
+        data.ratings = parseInt(data.productRating);
+        data.isLoding = false;
+        data.cart = false;
+      });
+
+      this.filterDataElectronics = JSON.parse(JSON.stringify(this.dataTypeElectronics)) 
+      this.filterDataTypeCloths = JSON.parse(JSON.stringify(this.dataTypeCloths)) 
       this.isLoding = false;
     });
   }
@@ -65,33 +79,31 @@ export class ContentLayoutComponent {
   }
 
   searchProduct() {
-    this.filterData = this.dataTypeElectronics;
-    let filterData: Array<object>;
+    this.filterDataElectronics  = this.dataTypeElectronics;
+    this.filterDataTypeCloths = this.dataTypeCloths;
+    let filterDataElectronics : Array<object>;
+    let filterDataTypeCloths : Array<object>;
     this._productSearchService.$searchValue
       .pipe(debounceTime(200))
       .subscribe((value) => {
-        if (this.dataTypeElectronics) {
-          filterData = this.dataTypeElectronics.filter((ele) =>
+        if (this.dataTypeElectronics || this.dataTypeCloths) {
+          filterDataElectronics  = this.dataTypeElectronics.filter((ele) =>
+            JSON.stringify(ele)
+              .trim()
+              .toLowerCase()
+              .includes(value.trim().toLowerCase())
+          );
+
+          filterDataTypeCloths = this.dataTypeCloths.filter((ele) =>
             JSON.stringify(ele)
               .trim()
               .toLowerCase()
               .includes(value.trim().toLowerCase())
           );
         }
-        this.filterData = filterData;
+        this.filterDataElectronics = filterDataElectronics;
+        this.filterDataTypeCloths = filterDataTypeCloths;
       });
   }
-
-//   inputFile(event){
-//    const file = event.target.files[0]
-//    const formData = new FormData()
-//    formData.append('file',file)
-//    const json = {description:'test',price:1,trademark:'test',type:'test'}
-//    formData.append('data',JSON.stringify(json))
-//    const url = 'http://localhost:8080/api/product/create'
-// this._http.post(url,formData).subscribe(e=>{
-//   e
-// })
-//   }
 
 }

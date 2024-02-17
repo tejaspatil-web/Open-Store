@@ -1,6 +1,6 @@
     <div class="main" *ngIf="!isLoading && component === 'signup'">
         <div class="d-flex justify-content-end">
-            <button mat-raised-button (click)="closeDialog()">X</button>
+            <button mat-raised-button class="mb-4" (click)="closeDialog()">X</button>
         </div>
         <h4 class="text-center">OTP Verification</h4>
         <div [ngClass]="{'verification-title-send-otp':isOtpSend,'verification-title-unable-send-otp':!isOtpSend}">

@@ -25,7 +25,7 @@ header {
   list-style-type: none;
   margin: 0 10px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .bottom-border::after {
@@ -79,7 +79,7 @@ header {
   border-radius: 50%;
   background: red;
   color: white;
-  width: 100%;
+  width:90%;
   display: flex;
   justify-content: center;
   align-items: center;
