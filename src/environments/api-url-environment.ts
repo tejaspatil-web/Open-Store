@@ -1,4 +1,4 @@
-const baseUrl = 'https://open-store.onrender.com';
+const baseUrl = 'https://open-store-woad.vercel.app';
 const getwayUrl = baseUrl + '/api';
 
 export const environment = {
